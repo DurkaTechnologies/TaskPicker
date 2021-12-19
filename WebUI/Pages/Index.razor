@@ -1,3 +1,42 @@
 ﻿@page "/"
+@using WebUI.Entities
 
 <PageTitle>Task Picker</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<button class="btn btn-primary" @onclick="Vote">Click me</button>
+
+@if (missions != null)
+{
+    @foreach (var mission in missions.Missions)
+    {
+        <h3>@mission.Name @mission.Weight</h3>
+    }
+}
+
+@code {
+    Random random = new Random();
+    MissionList missions = new MissionList();
+    BotNet? botNet;
+
+    protected override void OnInitialized()
+    {
+        missions.Missions.Add(new Mission("Shavat Salo"));
+        missions.Missions.Add(new Mission("Posharit Salo"));
+        missions.Missions.Add(new Mission("Stushit Salo"));
+        missions.Missions.Add(new Mission("Shavat Salo"));
+    }
+
+    private void Vote()
+    {
+        if(botNet == null)
+            botNet = new BotNet(random, 10);
+
+        botNet.Vote(random, missions);
+    }
+}
+
+<SurveyPrompt Title="How is Blazor working for you?" />
