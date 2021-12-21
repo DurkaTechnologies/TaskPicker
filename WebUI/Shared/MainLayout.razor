@@ -1,15 +1,22 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.AspNetCore.Components
+@using Radzen.Blazor
+@using WebUI.Shared.Components
+@inherits LayoutComponentBase
 
-<div class="page">
-    <main>
-        <div class="top-row px-4">
-            <a href="" target="_blank">About</a>
-        </div>
+<RadzenLayout>
+    <MainHeader>
 
-        <article class="content px-4">
+    </MainHeader>
+<RadzenBody>
+    <ChildContent>
+        <RadzenContentContainer Name="main">
             @Body
-        </article>
+           <RadzenDialog />
+        </RadzenContentContainer>
+    </ChildContent>
+</RadzenBody>
 
-        <RadzenDialog />
-    </main>
-</div>
+</RadzenLayout>
+@code {
+  
+}

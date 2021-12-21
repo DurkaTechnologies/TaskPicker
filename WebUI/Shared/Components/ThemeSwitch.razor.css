@@ -1,0 +1,73 @@
+﻿.emoji {
+    padding-top: 0.15rem;
+}
+
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 3.5rem;
+    min-width: 3.5rem;
+    height: 1.75rem;
+}
+
+.theme-switch-circle {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.theme-switch-circle.theme-disabled {
+    opacity: 0.5;
+    cursor: initial;
+}
+
+.theme-switch .theme-switch-circle {
+    background: #ced4da;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 30px;
+}
+
+.theme-switch.theme-switch-checked .theme-switch-circle {
+    background: #479cc8;
+}
+
+.theme-switch .theme-switch-circle .circle {
+    background: #ffffff;
+    width: 1.25rem;
+    height: 1.25rem;
+    left: 0.25rem;
+    margin-top: -0.625rem;
+    border-radius: 50%;
+    transition-duration: 0.2s;
+    box-shadow: none;
+}
+
+.theme-switch-circle .circle {
+    position: absolute;
+    content: "";
+    top: 50%;
+}
+
+.theme-switch-circle.theme-disabled .circle {
+    box-shadow: none;
+}
+
+.theme-switch.p-theme-switch-checked .theme-switch-circle .circle {
+    background: #ffffff;
+}
+
+.theme-switch.theme-switch-checked .theme-switch-circle .circle {
+    transform: translateX(1.75rem);
+}
+
+.unselectable {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently not supported by any browser */
+}

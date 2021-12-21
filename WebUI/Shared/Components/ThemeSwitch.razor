@@ -1,0 +1,24 @@
+﻿@using Radzen
+@using Microsoft.AspNetCore.Components.Forms
+@inherits FormComponent<bool>
+
+@if (Visible)
+{
+    <div @attributes="Attributes" class="@GetCssClass()" id="@GetId()"
+     @onclick="@Toggle" @onkeypress="@(async (args) => { if (args.Code == "Space") { await Toggle(); } })" style="outline: 0 none;@Style" tabindex="@TabIndex">
+        <div class="rz-helper-hidden-accessible">
+            <input type="checkbox" name="@Name" value="@Value" tabindex="-1">
+        </div>
+        <span class="theme-switch-circle@(Disabled ? " theme-disabled" : "")">
+            <div class="d-flex align-items-center justify-content-around">
+                <div class="d-flex">
+                    <span class="emoji unselectable">🌜</span>
+                </div>
+                <div class="d-flex">
+                    <span class="text-end emoji unselectable">🌞</span>
+                </div>
+            </div>
+            <div class="circle"></div>
+        </span>
+    </div>
+}

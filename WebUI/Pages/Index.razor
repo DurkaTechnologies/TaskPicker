@@ -1,19 +1,33 @@
 ﻿@page "/"
 @using WebUI.Entities
+@using WebUI.Shared.Components
 @using WebUI.Shared
 
+
 <PageTitle>Task Picker</PageTitle>
+<div class="container">
 
-
-    <div class="row d-flex justify-content-center">
+    <div class="row">
         <div class="col-xl-5 col-lg-8 col-md-8 col-sm-10 col-12">
-            @if (missions != null)
-            {
-                <MissionCard Missions="missions.Missions" />
-            }
+            <RadzenCard>
+                <h2 class="m-0">
+                    Task List Name
+                </h2>
+            </RadzenCard>
+            <RadzenCard class="my-2">
+                <div class="row d-flex justify-content-center">
+                  <div class="col-12">
+                    @if (missions != null)
+                    {
+                          <MissionCard Missions="missions.Missions" />
+                    }
+                 </div>
+              </div>
+            </RadzenCard>
+            <TaskListFooter />
         </div>
     </div>
-
+</div>
 
 @code {
     
@@ -29,6 +43,4 @@
         missions.Missions.Add(new Mission("Brad McGuire"));
         missions.Missions.Add(new Mission("Mark Wolff"));
     }
-
-    
 }

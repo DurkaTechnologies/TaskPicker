@@ -4,20 +4,8 @@
 	{
 		private int stupidity;
 
-		public bool IsDead { get; set; }
-
 		public static int MaxStupidity = 10;
 		
-		public int Stupidity 
-		{ 
-			get { return stupidity; } 
-			set 
-			{
-				if(value >= 0 && value <= MaxStupidity)
-					stupidity = value;
-			} 
-		}
-
 		public Bot()
 		{
 			IsDead = false;
@@ -31,7 +19,7 @@
 
 		public void Generate(Random random) 
 		{
-			Stupidity = random.Next(MaxStupidity);
+			Stupidity = random.Next(MaxStupidity + 1);
 		}
 
 		public int Vote(Random random, int quantity) 
@@ -40,6 +28,18 @@
 				return 0;
 
 			return random.Next(quantity);
+		}
+
+		public bool IsDead { get; set; }
+
+		public int Stupidity
+		{
+			get { return stupidity; }
+			set
+			{
+				if (value >= 0 && value <= MaxStupidity)
+					stupidity = value;
+			}
 		}
 	}
 }
