@@ -1,9 +1,44 @@
 ﻿@page "/"
+@using WebUI.Entities
+@using WebUI.Shared.Components
+@using WebUI.Shared
 
-<PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<PageTitle>Task Picker</PageTitle>
 
-Welcome to your new app.
+<div class="row justify-content-center">
+    <div class="col-xl-7 col-lg-8 col-md-8 col-sm-10 col-12">
+        <RadzenCard>
+            <h2 class="m-0">
+                Task List Name
+            </h2>
+        </RadzenCard>
+        <RadzenCard class="my-2">
+            <div class="row d-flex justify-content-center">
+                <div class="col-12">
+                    @if (missions != null)
+                    {
+                        <MissionCard Missions="missions.Missions" />
+                    }
+                </div>
+            </div>
+        </RadzenCard>
+        <TaskListFooter />
+    </div>
+</div>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code {
+
+    MissionList missions = new MissionList();
+
+    protected override void OnInitialized()
+    {
+        missions.Missions.Add(new Mission("Billie Harington"));
+        missions.Missions.Add(new Mission("Van Darkholme"));
+        missions.Missions.Add(new Mission("Ricardo Milos"));
+        missions.Missions.Add(new Mission("Danny Lee"));
+        missions.Missions.Add(new Mission("Steve Rambo"));
+        missions.Missions.Add(new Mission("Brad McGuire"));
+        missions.Missions.Add(new Mission("Mark Wolff"));
+    }
+}

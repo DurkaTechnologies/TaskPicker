@@ -1,0 +1,34 @@
+﻿@using WebUI.Entities
+@inject DialogService DialogService
+
+<div class="d-flex flex-column">
+    @if (Mission != null)
+    {
+        <h5 class="m-0">Name</h5>
+        <RadzenTextBox class="my-2" @bind-Value=@Mission.Name />
+        <h5 class="m-0">Description</h5>
+        <RadzenTextArea class="w-100 my-2" @bind-Value=@Mission.Description />
+        <RadzenButton Text="Confirm" ButtonStyle="ButtonStyle.Info" Click=@Close Class="mt-3"/>
+    }
+    else
+    {
+        <h5>LOADING ...</h5>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public Mission? Mission { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (Mission == null)
+            Mission = new Mission();
+    }
+
+    private void Close()
+    {
+        if(Mission != null)
+            DialogService.Close(Mission);
+    }
+}
