@@ -7,14 +7,12 @@
 		public BotNet()
 		{
 			Bots = new List<Bot>();
-      VoteStart = true;
 		}
 
 		public BotNet(Random random, int quantity)
 		{
 			Bots = new List<Bot>();
 			BotsQuantity = quantity;
-      VoteStart = true;
       
 			for (int i = 0; i < BotsQuantity; i++)
 				Bots.Add(new Bot(random));
@@ -51,6 +49,6 @@
 
 		public List<Bot> Bots { get; set; }
 
-		private bool VoteStarted { get; set; }
+		private bool VoteStarted => false;
 	}
 }
