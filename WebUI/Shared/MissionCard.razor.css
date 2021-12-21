@@ -1,0 +1,25 @@
+﻿.button {
+    margin: 16px;
+}
+
+.main {
+    color: white;
+    border-radius: 16px;
+    padding: 0px;
+    background-image: linear-gradient(90deg, rgba(5, 39, 103, 0.7) 0%, rgb(58, 6, 71, 0.7) 70%);
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.content {
+    padding: 16px;
+}
+
+.bar {
+    width: 100%;
+}
+
+.edit-block {
+    text-align: right;
+    padding: 0px;
+}

@@ -1,4 +1,6 @@
-﻿namespace WebUI.Entities
+﻿using System.Collections.ObjectModel;
+
+namespace WebUI.Entities
 {
 	public class MissionList
 	{

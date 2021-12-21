@@ -1,51 +1,46 @@
 ﻿@page "/"
 @using WebUI.Entities
 @using WebUI.Shared.Components
+@using WebUI.Shared
+
 
 <PageTitle>Task Picker</PageTitle>
 <div class="container">
 
     <div class="row">
-        <div class="col-12 pt-4 pb-5 px-3 px-lg-5">
+        <div class="col-xl-5 col-lg-8 col-md-8 col-sm-10 col-12">
             <RadzenCard>
                 <h2 class="m-0">
                     Task List Name
                 </h2>
             </RadzenCard>
             <RadzenCard class="my-2">
-                @if (missions != null)
-                {
-                    @foreach (var mission in missions.Missions)
+                <div class="row d-flex justify-content-center">
+                  <div class="col-12">
+                    @if (missions != null)
                     {
-                        <h3>@mission.Name @mission.Weight</h3>
+                          <MissionCard Missions="missions.Missions" />
                     }
-                }
+                 </div>
+              </div>
             </RadzenCard>
             <TaskListFooter />
         </div>
     </div>
 </div>
 
-
 @code {
-    Random random = new Random();
+    
     MissionList missions = new MissionList();
-    BotNet? botNet;
 
     protected override void OnInitialized()
     {
-        missions.Missions.Add(new Mission("Shavat Salo"));
-        missions.Missions.Add(new Mission("Posharit Salo"));
-        missions.Missions.Add(new Mission("Stushit Salo"));
-        missions.Missions.Add(new Mission("Shavat Salo"));
-    }
-
-    private void Vote()
-    {
-        if (botNet == null)
-            botNet = new BotNet(random, 10);
-
-        botNet.Vote(random, missions);
+        missions.Missions.Add(new Mission("Billie Harington"));
+        missions.Missions.Add(new Mission("Van Darkholme"));
+        missions.Missions.Add(new Mission("Ricardo Milos"));
+        missions.Missions.Add(new Mission("Danny Lee"));
+        missions.Missions.Add(new Mission("Steve Rambo"));
+        missions.Missions.Add(new Mission("Brad McGuire"));
+        missions.Missions.Add(new Mission("Mark Wolff"));
     }
 }
-
