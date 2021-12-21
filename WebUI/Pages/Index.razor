@@ -16,25 +16,19 @@
 
 
 @code {
-    Random random = new Random();
+    
     MissionList missions = new MissionList();
-    BotNet? botNet;
-    double value = 10;
 
     protected override void OnInitialized()
     {
-        missions.Missions.Add(new Mission("Shavat Salo"));
-        missions.Missions.Add(new Mission("Posharit Salo"));
-        missions.Missions.Add(new Mission("Stushit Salo"));
-        missions.Missions.Add(new Mission("Shavat Salo"));
+        missions.Missions.Add(new Mission("Billie Harington"));
+        missions.Missions.Add(new Mission("Van Darkholme"));
+        missions.Missions.Add(new Mission("Ricardo Milos"));
+        missions.Missions.Add(new Mission("Danny Lee"));
+        missions.Missions.Add(new Mission("Steve Rambo"));
+        missions.Missions.Add(new Mission("Brad McGuire"));
+        missions.Missions.Add(new Mission("Mark Wolff"));
     }
 
-    private void Vote()
-    {
-        if (botNet == null)
-            botNet = new BotNet(random, 10);
-
-        botNet.Vote(random, missions);
-        value += 5;
-    }
+    
 }

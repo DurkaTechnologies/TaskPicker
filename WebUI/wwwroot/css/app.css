@@ -77,6 +77,7 @@ a, .btn-link {
 }
 
 .rz-progressbar-value {
+    transition: width 100ms !important;
     background-color: #f9777f !important;
     border-radius: 5px !important;
 }
@@ -84,4 +85,10 @@ a, .btn-link {
 .rz-progressbar {
     background-color: transparent !important;
     height: 10px !important;
+}
+
+.rz-progressbar-value-animate {
+    transition-property: all !important;
+    transition-delay: 0.2s !important;
+    transition-duration: 2s !important;
 }

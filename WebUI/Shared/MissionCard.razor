@@ -3,9 +3,14 @@
 @inject DialogService DialogService
 @using WebUI.Shared
 
-<div class="button-box">
-    <RadzenButton Text="Add Task" ButtonStyle="ButtonStyle.Info" Click=@(args => OpenAddOrEditTask(null)) />
-    <RadzenButton Text="Remove All" ButtonStyle="ButtonStyle.Danger" Click=@RemoveAll />
+<div class="row">
+    <div class="col-8">
+        <RadzenButton Icon="add_circle_outline" class="mb-3" ButtonStyle="ButtonStyle.Info" Click=@(args => OpenAddOrEditTask(null)) />
+        <RadzenButton Icon="delete" class="mb-3" ButtonStyle="ButtonStyle.Danger" Click=@RemoveAll />
+    </div>
+    <div class="col-4 text-end">
+        <RadzenButton Icon="analytics" class="mb-3" ButtonStyle="ButtonStyle.Success" Click=@Vote />
+    </div>
 </div>
 
 @if (Missions != null)
@@ -21,13 +26,13 @@
                     </div>
                     <div class="col-4 p-0">
                         <div class="edit-block">
-                            <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Info" Click=@(args => OpenAddOrEditTask(mission))/>
-                            <RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" class="ml-2" Click=@(args => Delete(mission))/>
+                            <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Info" Click=@(args => OpenAddOrEditTask(mission)) />
+                            <RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" class="ml-2" Click=@(args => Delete(mission)) />
                         </div>
                     </div>
                 </div>
             </div>
-            <RadzenProgressBar @bind-Value="@value" class="task-bar"/>
+            <RadzenProgressBar @bind-Value="@mission.Value" class="task-bar" />
         </div>
     }
 
@@ -40,21 +45,26 @@
 @code {
     [Parameter]
     public List<Mission> Missions { get; set; } = new List<Mission>();
-    public double value = 44;
+
+    private Random random = new Random();
+    private BotNet? botNet = null;
 
     private async Task Delete(Mission mission)
     {
         var result = await DialogService.Confirm("Are you want to delete the task?");
 
-        if(result != null && result == true)
+        if (result != null && result == true)
+        {
             Missions.Remove(mission);
+            Vote();
+        }
     }
 
     private async Task RemoveAll()
     {
         var result = await DialogService.Confirm("Are you want to delete all tasks?");
 
-        if(result != null && result == true)
+        if (result != null && result == true)
             Missions.Clear();
     }
 
@@ -70,20 +80,32 @@
             new DialogOptions() { Width = "512px" });
 
             if (result != null)
-            {   
+            {
                 int index = Missions.FindIndex(x => x == mission);
                 Missions[index] = result;
+                Vote();
             }
         }
         else
-        {   
+        {
             result = await DialogService.OpenAsync<AddOrEditDialog>(
             "Add Task",
             null,
             new DialogOptions() { Width = "512px" });
 
             if (result != null)
+            {
                 Missions.Add(result);
+                Vote();
+            }
         }
+    }
+
+    private void Vote()
+    {
+        if (botNet == null)
+            botNet = new BotNet(random, 10);
+
+        botNet.Vote(random, Missions);
     }
 }
