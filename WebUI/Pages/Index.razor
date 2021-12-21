@@ -1,20 +1,31 @@
 ﻿@page "/"
 @using WebUI.Entities
+@using WebUI.Shared.Components
 
 <PageTitle>Task Picker</PageTitle>
+<div class="container">
 
-<TaskList>
+    <div class="row">
+        <div class="col-12 pt-4 pb-5 px-3 px-lg-5">
+            <RadzenCard>
+                <h2 class="m-0">
+                    Task List Name
+                </h2>
+            </RadzenCard>
+            <RadzenCard class="my-2">
+                @if (missions != null)
+                {
+                    @foreach (var mission in missions.Missions)
+                    {
+                        <h3>@mission.Name @mission.Weight</h3>
+                    }
+                }
+            </RadzenCard>
+            <TaskListFooter />
+        </div>
+    </div>
+</div>
 
-</TaskList>
-
-
-@if (missions != null)
-{
-    @foreach (var mission in missions.Missions)
-    {
-        <h3>@mission.Name @mission.Weight</h3>
-    }
-}
 
 @code {
     Random random = new Random();
@@ -31,11 +42,10 @@
 
     private void Vote()
     {
-        if(botNet == null)
+        if (botNet == null)
             botNet = new BotNet(random, 10);
 
         botNet.Vote(random, missions);
     }
 }
 
-<SurveyPrompt Title="How is Blazor working for you?" />
