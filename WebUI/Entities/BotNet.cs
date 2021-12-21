@@ -18,11 +18,19 @@
 					Bots.Add(new Bot(random));
 		}
 
-		public void Vote(Random random, MissionList missions) 
+		public void Vote(Random random, List<Mission> missions) 
 		{
-			if (missions.Missions.Count != 0)
+			foreach (var mission in missions)
+				mission.Weight = 0;
+
+			if (missions.Count != 0)
 				foreach (var bot in Bots)
-					missions.Missions[bot.Vote(random, missions.Missions.Count)].Weight++;
+					missions[bot.Vote(random, missions.Count)].Weight++;
+
+			//int maxCount = missions.Max(x => x.Weight);
+
+			foreach (var mission in missions)
+				mission.Value = ((double)mission.Weight / (double)Bots.Count) * 100;
 		}
 	}
 }

@@ -1,5 +1,9 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+* {
+
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -59,11 +63,32 @@ a, .btn-link {
     color: white;
 }
 
-    .blazor-error-boundary::after {
-        content: "An error has occurred."
-    }
+.blazor-error-boundary::after {
+    content: "An error has occurred."
+}
 
 .spinner-border {
     border-color: rgba(5, 39, 103, 0.7);
     border-right-color: transparent;
+}
+
+.rz-progressbar-label {
+    display: none !important;
+}
+
+.rz-progressbar-value {
+    transition: width 100ms !important;
+    background-color: #f9777f !important;
+    border-radius: 5px !important;
+}
+
+.rz-progressbar {
+    background-color: transparent !important;
+    height: 10px !important;
+}
+
+.rz-progressbar-value-animate {
+    transition-property: all !important;
+    transition-delay: 0.2s !important;
+    transition-duration: 2s !important;
 }
