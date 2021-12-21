@@ -1,0 +1,89 @@
+﻿@using Radzen
+@using WebUI.Entities;
+@inject DialogService DialogService
+@using WebUI.Shared
+
+<div class="button-box">
+    <RadzenButton Text="Add Task" ButtonStyle="ButtonStyle.Info" Click=@(args => OpenAddOrEditTask(null)) />
+    <RadzenButton Text="Remove All" ButtonStyle="ButtonStyle.Danger" Click=@RemoveAll />
+</div>
+
+@if (Missions != null)
+{
+    @foreach (var mission in Missions)
+    {
+        <div class="main">
+            <div class="content">
+                <div class="row m-0">
+                    <div class="col-8 p-0">
+                        <h3>@mission.Name</h3>
+                        <p class="m-0">@mission.Description</p>
+                    </div>
+                    <div class="col-4 p-0">
+                        <div class="edit-block">
+                            <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Info" Click=@(args => OpenAddOrEditTask(mission))/>
+                            <RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" class="ml-2" Click=@(args => Delete(mission))/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <RadzenProgressBar @bind-Value="@value" class="task-bar"/>
+        </div>
+    }
+
+    @if (Missions.Count == 0)
+    {
+        <h2 class="text-center">List clear</h2>
+    }
+}
+
+@code {
+    [Parameter]
+    public List<Mission> Missions { get; set; } = new List<Mission>();
+    public double value = 44;
+
+    private async Task Delete(Mission mission)
+    {
+        var result = await DialogService.Confirm("Are you want to delete the task?");
+
+        if(result != null && result == true)
+            Missions.Remove(mission);
+    }
+
+    private async Task RemoveAll()
+    {
+        var result = await DialogService.Confirm("Are you want to delete all tasks?");
+
+        if(result != null && result == true)
+            Missions.Clear();
+    }
+
+    private async Task OpenAddOrEditTask(Mission? mission)
+    {
+        dynamic? result = null;
+
+        if (mission != null)
+        {
+            result = await DialogService.OpenAsync<AddOrEditDialog>(
+            "Edit Task",
+            new Dictionary<string, object>() { { "Mission", mission } },
+            new DialogOptions() { Width = "512px" });
+
+            if (result != null)
+            {   
+                int index = Missions.FindIndex(x => x == mission);
+                Missions[index] = result;
+            }
+        }
+        else
+        {   
+            result = await DialogService.OpenAsync<AddOrEditDialog>(
+            "Add Task",
+            null,
+            new DialogOptions() { Width = "512px" });
+
+            if (result != null)
+                Missions.Add(result);
+        }
+    }
+}

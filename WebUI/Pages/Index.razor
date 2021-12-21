@@ -1,26 +1,25 @@
 ﻿@page "/"
 @using WebUI.Entities
+@using WebUI.Shared
 
 <PageTitle>Task Picker</PageTitle>
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+    <div class="row d-flex justify-content-center">
+        <div class="col-xl-5 col-lg-8 col-md-8 col-sm-10 col-12">
+            @if (missions != null)
+            {
+                <MissionCard Missions="missions.Missions" />
+            }
+        </div>
+    </div>
 
-<button class="btn btn-primary" @onclick="Vote">Click me</button>
-
-@if (missions != null)
-{
-    @foreach (var mission in missions.Missions)
-    {
-        <h3>@mission.Name @mission.Weight</h3>
-    }
-}
 
 @code {
     Random random = new Random();
     MissionList missions = new MissionList();
     BotNet? botNet;
+    double value = 10;
 
     protected override void OnInitialized()
     {
@@ -32,11 +31,10 @@ Welcome to your new app.
 
     private void Vote()
     {
-        if(botNet == null)
+        if (botNet == null)
             botNet = new BotNet(random, 10);
 
         botNet.Vote(random, missions);
+        value += 5;
     }
 }
-
-<SurveyPrompt Title="How is Blazor working for you?" />
